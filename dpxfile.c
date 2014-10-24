@@ -40,7 +40,6 @@
 
 #define MAX_KEY_LEN 16
 
-#include <kpathsea/lib.h>
 #include <string.h>
 #ifdef WIN32
 #include <io.h>
