@@ -155,7 +155,7 @@ spc_handler_xtx_grestore (struct spc_env *spe, struct spc_arg *args)
    * we make no assumptions about what fonts. We act like we are
    * starting a new page.
    */
-  texpdf_dev_reset_fonts();
+  texpdf_dev_reset_fonts(0);
   texpdf_dev_reset_color(pdf, 0);
 
   return  0;
