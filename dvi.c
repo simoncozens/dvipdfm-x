@@ -943,7 +943,7 @@ dvi_locate_native_font (const char *filename, uint32_t index,
   sprintf(fontmap_key, "%s/%u/%c/%d/%d/%d", path, index, layout_dir == 0 ? 'H' : 'V', extend, slant, embolden);
   mrec = texpdf_lookup_fontmap_record(native_fontmap, fontmap_key);
   if (mrec == NULL) {
-    if (texpdf_load_native_font(path, index, layout_dir, extend, slant, embolden) == -1) {
+    if (texpdf_insert_native_fontmap_record(path, index, layout_dir, extend, slant, embolden) == -1) {
       ERROR("Cannot proceed without the font: %s", filename);
     }
     mrec = texpdf_lookup_fontmap_record(native_fontmap, fontmap_key);
