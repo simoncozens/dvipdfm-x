@@ -913,7 +913,7 @@ dvi_locate_native_font (const char *filename, uint32_t index,
 {
   int           cur_id = -1;
   fontmap_rec  *mrec;
-  char         *fontmap_key = malloc(strlen(filename) + 40); // CHECK this is enough
+  char         *fontmap_key;
   FILE         *fp;
   char         *path = strdup(filename);
   sfnt         *sfont;
@@ -940,6 +940,7 @@ dvi_locate_native_font (const char *filename, uint32_t index,
 
   cur_id = num_loaded_fonts++;
 
+  fontmap_key = malloc(strlen(path) + 40); // CHECK this is enough
   sprintf(fontmap_key, "%s/%u/%c/%d/%d/%d", path, index, layout_dir == 0 ? 'H' : 'V', extend, slant, embolden);
   mrec = texpdf_lookup_fontmap_record(native_fontmap, fontmap_key);
   if (mrec == NULL) {
