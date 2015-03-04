@@ -690,7 +690,7 @@ spc_handler_ps_tricks_render (struct spc_env *spe, struct spc_arg *args)
     fclose(fp);
 
     error = dpx_file_apply_filter(distiller_template, gs_in, gs_out,
-                                 (unsigned char) texppdf_get_version());
+                                 (unsigned char) texpdf_get_version());
     if (error) {
       WARN("Image format conversion for PSTricks failed.");
       RELEASE(gs_in);
