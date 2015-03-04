@@ -66,13 +66,6 @@ KPSE_ADD_FLAGS([kpathsea])
 AC_CHECK_HEADER([kpathsea/version.h], [],
                 [AC_MSG_ERROR([Sorry, kpathsea too old])])
 
-KPSE_ADD_FLAGS([zlib])
-AC_LINK_IFELSE([AC_LANG_PROGRAM([[#include <zlib.h>]],
-                                [[Bytef *dst,*src; uLong dstlen, srclen; int lvl, err;
-                                  err=compress2(dst, &dstlen, src, srclen, lvl);]])],
-               [],
-               [AC_MSG_ERROR([Sorry, you need zlib with compress2])])
-
 KPSE_ADD_FLAGS([libpng])
 AC_LINK_IFELSE([AC_LANG_PROGRAM([[#include <png.h>]],
                                 [[png_const_structp png; png_const_infop info; int err;
