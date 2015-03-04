@@ -609,13 +609,8 @@ spc_handler_ps_tricks_parse_path (struct spc_env *spe, struct spc_arg *args)
   fprintf(fp, " showpage\n");
   fclose(fp);
 
-<<<<<<< HEAD
-  error = dpx_file_apply_filter(distiller_template, gs_in, gs_out,
-                               (unsigned char) texpdf_get_version());
-=======
   error = dpx_file_apply_filter(pstricks_template, gs_in, gs_out,
-                               (unsigned char) pdf_get_version());
->>>>>>> 582d378... texk/dvipdfm-x: Herbert　requires -sPAPERSIZE=a0 in the case of PSTricks
+                               (unsigned char) texpdf_get_version());
   if (error) {
     WARN("Image format conversion for PSTricks failed.");
     RELEASE(gs_in);
@@ -647,13 +642,9 @@ spc_handler_ps_tricks_render (struct spc_env *spe, struct spc_arg *args)
   int k;
   pdf_tmatrix M;
 
-<<<<<<< HEAD
-  if (!distiller_template)
-    distiller_template = texpdf_get_distiller_template();
-=======
   if (!distiller_template) {
     char *p;
-    distiller_template = get_distiller_template();
+    distiller_template = texpdf_get_distiller_template();
     pstricks_template = xmalloc (strlen(distiller_template) + 14);
     p = strstr (distiller_template, "-dEPSCrop");
     if(p) {
@@ -666,7 +657,6 @@ spc_handler_ps_tricks_render (struct spc_env *spe, struct spc_arg *args)
       strcpy (pstricks_template, distiller_template);
     }
   }
->>>>>>> 582d378... texk/dvipdfm-x: Herbert　requires -sPAPERSIZE=a0 in the case of PSTricks
 
   texpdf_dev_currentmatrix(&M);
   if (!gs_in) {
@@ -726,13 +716,8 @@ spc_handler_ps_tricks_render (struct spc_env *spe, struct spc_arg *args)
     fprintf(fp, " showpage\n");
     fclose(fp);
 
-<<<<<<< HEAD
-    error = dpx_file_apply_filter(distiller_template, gs_in, gs_out,
-                                 (unsigned char) texpdf_get_version());
-=======
     error = dpx_file_apply_filter(pstricks_template, gs_in, gs_out,
-                                 (unsigned char) pdf_get_version());
->>>>>>> 582d378... texk/dvipdfm-x: Herbert　requires -sPAPERSIZE=a0 in the case of PSTricks
+                                 (unsigned char) texpdf_get_version());
     if (error) {
       WARN("Image format conversion for PSTricks failed.");
       RELEASE(gs_in);
