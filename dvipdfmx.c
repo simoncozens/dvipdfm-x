@@ -57,7 +57,7 @@ const char *my_name = "xdvipdfmx";
 const char *my_name = "dvipdfmx";
 #endif
 
-int compat_mode = 0;     /* 0 = dvipdfmx, 1 = dvipdfm */
+extern int compat_mode;     /* 0 = dvipdfmx, 1 = dvipdfm */
 
 static int verbose = 0;
 
@@ -417,6 +417,7 @@ set_verbose (int argc, char *argv[])
 static void
 do_args (int argc, char *argv[])
 {
+  compat_mode = 0;
   while (argc > 0 && *argv[0] == '-') {
     char *flag, *nextptr;
     const char *nnextptr;
