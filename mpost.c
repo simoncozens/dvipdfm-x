@@ -29,7 +29,7 @@
 #include <stdint.h>
 #endif
 
-#include "libtexpdf.h"
+#include "libtexpdf/libtexpdf.h"
 #include <kpathsea/kpathsea.h>
 #include "fontmap.h"
 

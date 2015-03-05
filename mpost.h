@@ -24,8 +24,7 @@
 #define _MPOST_H_
 
 #include  "mfileio.h"
-#include  "pdfximage.h"
-#include  "pdfdev.h"
+#include "libtexpdf/libtexpdf.h"
 
 extern int  mps_scan_bbox    (const char **pp, const char *endptr, pdf_rect *bbox);
 
