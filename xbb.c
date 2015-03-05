@@ -1,4 +1,4 @@
-/* This is extractbb, a bounding box extraction program. 
+/* This is extractbb, a bounding box extraction program.
     Copyright (C) 2008-2014 by Jin-Hwan Cho and Matthias Franz
     and the dvipdfmx project team.
 
@@ -43,10 +43,11 @@
 
 #define XBB_PROGRAM "extractbb"
 
+static long Include_Page = 1;
+
 static void show_version(void)
 {
   fprintf (stdout, "\nThis is " XBB_PROGRAM " Version " VERSION "\n");
-  fprintf (stdout, "A bounding box extraction utility from PDF, PNG, and JPEG.\n");
   fprintf (stdout, "\nCopyright (C) 2008-2014 by Jin-Hwan Cho and Matthias Franz\n");
   fprintf (stdout, "\nThis is free software; you can redistribute it and/or modify\n");
   fprintf (stdout, "it under the terms of the GNU General Public License as published by\n");
@@ -56,11 +57,13 @@ static void show_version(void)
 
 static void show_usage(void)
 {
-  fprintf (stdout, "\nUsage: " XBB_PROGRAM " [-q|-v] [-O] [-m|-x] file...\n");
+  fprintf (stdout, "\nUsage: " XBB_PROGRAM " [-p page] [-q|-v] [-O] [-m|-x] FILE...\n");
   fprintf (stdout, "       " XBB_PROGRAM " --help|--version\n");
+  fprintf (stdout, "Extract bounding box from PDF, PNG, or JPEG file; default output below.\n");
   fprintf (stdout, "\nOptions:\n");
   fprintf (stdout, "  -h | --help\tShow this help message and exit\n");
   fprintf (stdout, "  --version\tOutput version information and exit\n");
+  fprintf (stdout, "  -p page\tSpecify a PDF page to extract bounding box\n");
   fprintf (stdout, "  -q\t\tBe quiet\n");
   fprintf (stdout, "  -v\t\tBe verbose\n");
   fprintf (stdout, "  -O\t\tWrite output to stdout\n");
@@ -119,7 +122,7 @@ static char *make_xbb_filename(const char *name)
 static void write_xbb(char *fname,
 		      double bbllx_f, double bblly_f,
 		      double bburx_f, double bbury_f,
-		      int pdf_version, long pagecount) 
+		      int pdf_version, long pagecount)
 {
   char *outname = NULL;
   FILE *fp = NULL;
@@ -174,7 +177,7 @@ static void write_xbb(char *fname,
 
 static void do_bmp (FILE *fp, char *filename)
 {
-  long   width, height;
+  int    width, height;
   double xdensity, ydensity;
 
   if (bmp_get_bbox(fp, &width, &height, &xdensity, &ydensity) < 0) {
@@ -188,7 +191,7 @@ static void do_bmp (FILE *fp, char *filename)
 
 static void do_jpeg (FILE *fp, char *filename)
 {
-  long   width, height;
+  int    width, height;
   double xdensity, ydensity;
 
   if (jpeg_get_bbox(fp, &width, &height, &xdensity, &ydensity) < 0) {
@@ -202,7 +205,7 @@ static void do_jpeg (FILE *fp, char *filename)
 
 static void do_jp2 (FILE *fp, char *filename)
 {
-  long   width, height;
+  int    width, height;
   double xdensity, ydensity;
 
   if (jp2_get_bbox(fp, &width, &height, &xdensity, &ydensity) < 0) {
@@ -217,7 +220,7 @@ static void do_jp2 (FILE *fp, char *filename)
 #ifdef HAVE_LIBPNG
 static void do_png (FILE *fp, char *filename)
 {
-  long   width, height;
+  uint32_t width, height;
   double xdensity, ydensity;
 
   if (png_get_bbox(fp, &width, &height, &xdensity, &ydensity) < 0) {
@@ -234,7 +237,7 @@ static void do_pdf (FILE *fp, char *filename)
 {
   pdf_obj *page;
   pdf_file *pf;
-  long page_no = 1;
+  long page_no = Include_Page;
   long count;
   pdf_rect bbox;
 
@@ -256,7 +259,7 @@ static void do_pdf (FILE *fp, char *filename)
 	    pdf_file_get_version(pf), count);
 }
 
-int extractbb (int argc, char *argv[]) 
+int extractbb (int argc, char *argv[])
 {
   pdf_files_init();
 
@@ -293,12 +296,22 @@ int extractbb (int argc, char *argv[])
       case 'x':
         compat_mode = 0;
         break;
+      case 'q':
+        verbose = 0;
+        break;
       case 'v':
         verbose = 1;
         break;
-      case 'h':  
+      case 'h':
         show_usage();
         exit (0);
+      case 'p':
+        argc--;
+        argv++;
+        Include_Page = atol (argv[0]);
+        if (Include_Page == 0)
+          Include_Page = 1;
+        break;
       default:
         fprintf (stderr, "Unknown option in \"%s\"", argv[0]);
         usage();
