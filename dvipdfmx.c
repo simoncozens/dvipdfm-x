@@ -950,7 +950,7 @@ CDECL main (int argc, char *argv[])
   //} else if (argc == 2 && STREQ (argv[1], "--showpaper")) {
   //  dumppaperinfo();
   //  exit(0);
-  //}
+  }
 
   if (FILESTRCASEEQ (base, "dvipdfm"))
     compat_mode = 1;
