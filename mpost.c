@@ -118,7 +118,7 @@ mp_setfont (const char *font_name, double pt_size)
   strcpy(font->font_name, font_name);
   font->subfont_id = subfont_id;
   font->pt_size    = pt_size;
-  font->tfm_id     = texpdf_tfm_open(font_name, 0); /* Need not exist in MP mode */
+  font->tfm_id     = texpdf_tfm_open(NULL, font_name, 0); /* Need not exist in MP mode */
   font->font_id    = texpdf_dev_locate_font(dvi_fontmap, name,
                                          (spt_t) (pt_size * dev_unit_dviunit()));
 
