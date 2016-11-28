@@ -141,7 +141,7 @@ spc_read_color_color (struct spc_env *spe, pdf_color *colorspec, struct spc_arg 
       texpdf_color_graycolor(colorspec, cv[0]);
     }
   } else if (!strcmp(q, "spot")) { /* Handle spot colors */
-    char *color_name = parse_c_ident(&ap->curptr, ap->endptr);
+    char *color_name = texpdf_parse_c_ident(&ap->curptr, ap->endptr);
     if (!color_name) {
       spc_warn(spe, "No valid spot color name specified?");
       return  -1;

@@ -387,7 +387,7 @@ tpic__arc (struct spc_tpic_ *tp,
      * excess line. I'm not sure if it is proper TPIC implementation but this
      * seems to be DVIPS compatible behavior.
      */
-    texpdf_dev_newpath();
+    texpdf_dev_newpath(pdf);
     texpdf_dev_arcx(v[0], v[1], v[2], v[3], v[4], v[5], +1, 0.0);
 
     showpath(f_vp, f_fs);

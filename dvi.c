@@ -1697,7 +1697,7 @@ do_glyphs (void)
         height = (double)font->size * ascent / (double)font->unitsPerEm;
         depth  = (double)font->size * -descent / (double)font->unitsPerEm;
         texpdf_dev_set_rect(&rect, dvi_state.h + xloc[i], -dvi_state.v - yloc[i], glyph_width, height, depth);
-        texpdf_doc_expand_box(&rect);
+        texpdf_doc_expand_box(pdf, &rect);
       }
     }
 
